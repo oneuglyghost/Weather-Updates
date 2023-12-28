@@ -13,3 +13,21 @@ document.getElementById("searchButton").addEventListener("click", function() {
         document.getElementById('cityInput').value = '';
     }
 })
+
+/// function to show past searches
+function displayPastSearches() {
+    var pastSearchesList = document.getElementById("past-searches");
+
+    //clear existing list 
+    pastSearchesList.innerHTML = "";
+
+    // get key from local storage
+    Object.keys(localStorage).forEach(function(key){
+        var listItem = document.createElement("li");
+        listItem.textContent = key;
+        pastSearchesList.appendChild(listItem);
+    })
+}
+
+//shows past searches when page loads
+displayPastSearches();

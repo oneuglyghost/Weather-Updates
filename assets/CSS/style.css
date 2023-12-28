@@ -52,8 +52,13 @@ button{
     border-radius: 5px;
     height: 30px;
     color: white;
+    margin-bottom: 10px;
 }
 li{
-    background-color: rgb(132, 129, 129);
+    background-color: rgb(154, 151, 151);
     height: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-top: 7px;
+    border-radius: 5px;
 }
