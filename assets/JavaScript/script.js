@@ -145,6 +145,81 @@ function getCurrentWeather(city, lat,lon) {
     })  
 }
 
+// function to get weather forcast for next 5 days
+function getWeatherForecast(lat, lon) {
+    var forecastURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey + '&units=imperial';
 
+    // clear existing content in future-weather
+    var futureWeatherContainer = document.getElementById("future-weather");
+    futureWeatherContainer.innerHTML = '';
 
+    //fetch forcast data
+    fetch(forecastURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (forecastData) {
+            console.log('Received forecast data:', forecastData);
+            displayForecast(forecastData);
+        })
+    .catch(function(error){
+        console.error("Error fetching forcast data")
+    })
+}
+
+function displayForecast(forecastData) {
+
+    // Clear existing forecast elements
+    var futureWeatherContainer = document.getElementById('future-weather');
+    futureWeatherContainer.innerHTML = '';
+
+    //  get one entry per day
+    var dailyForecast = forecastData.list.filter(function(entry) {
+        // Filter by entries at 12:00 PM (noon) each day
+        return entry.dt_txt.includes('12:00:00');
+    });
+
+    // Iterate through the daily forecast data and create elements for each entry
+    dailyForecast.forEach(function(entry) {
+        // Extract relevant information from the forecast entry
+        var date = new Date(entry.dt_txt).toLocaleDateString("en-US", { month: '2-digit', day: '2-digit', year: 'numeric' });
+        var temperature = entry.main.temp;
+        var humidity = entry.main.humidity;
+        var windSpeed = entry.wind.speed;
+        var icon = entry.weather[0].icon;
+
+        // Create a container for the forecast entry
+        var forecastEntry = document.createElement('div');
+        forecastEntry.classList.add('forecast-entry');
+        forecastEntry.style.display = 'inline-block'; // Set display to inline-block
+
+        // Create elements for date, temperature, humidity, wind speed, and icon
+        var dateElement = document.createElement('p');
+        dateElement.textContent = date;
+
+        var temperatureElement = document.createElement('p');
+        temperatureElement.textContent = 'Temp: ' + temperature + ' °F';
+
+        var humidityElement = document.createElement('p');
+        humidityElement.textContent = 'Humidity: ' + humidity + '%';
+
+        var windSpeedElement = document.createElement('p');
+        windSpeedElement.textContent = 'Wind: ' + windSpeed + ' m/s';
+
+        var iconImage = document.createElement('img');
+        iconImage.src = "http://openweathermap.org/img/w/" + icon + ".png";
+        iconImage.alt = entry.weather[0].description;
+
+        // Append elements to the forecast entry container
+        forecastEntry.appendChild(dateElement);
+        forecastEntry.appendChild(iconImage);
+        forecastEntry.appendChild(temperatureElement);
+        forecastEntry.appendChild(humidityElement);
+        forecastEntry.appendChild(windSpeedElement);
+        
+
+        // Append the forecast entry container to the future weather container
+        futureWeatherContainer.appendChild(forecastEntry);
+    });
+}
 

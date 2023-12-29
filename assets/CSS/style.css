@@ -1,5 +1,7 @@
 
-
+*{
+    margin: 5px;
+}
 header {
     background: linear-gradient( to right, rgb(71, 71, 246), rgb(76, 18, 130));
     text-align: center;   
@@ -19,8 +21,9 @@ h1{
 }
 #current-weather{
     width: 60vw;
-    height: 40vh;
+    height: fit-content;
     border: 2px solid black;
+    padding-bottom: 20px;
 }
 h2{
     font-size: 25px;
@@ -32,7 +35,6 @@ h2{
     flex-direction: column;
     padding-left: 10px;
     padding-right: 10px;
-    border: 2px solid black;
     width: fit-content;
 }
 input{
@@ -74,4 +76,10 @@ li:hover{
 }
 #current-weather{
     padding-left: 10px;
+}
+#future-weather div{
+    padding: 10px;
+    color: #fff;
+    background-color: rgb(73, 73, 87);
+    margin-right: 20px;
 }
