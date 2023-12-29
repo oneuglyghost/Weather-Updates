@@ -61,4 +61,17 @@ li{
     text-align: center;
     padding-top: 7px;
     border-radius: 5px;
+    cursor: default;
+}
+li:hover{
+    background-color: rgb(66, 116, 242);
+    border: 1px solid rgb(0, 0, 0);
+}
+#line{
+    height: 2px;
+    background-color: gray;
+    margin-bottom: 10px;
+}
+#current-weather{
+    padding-left: 10px;
 }
